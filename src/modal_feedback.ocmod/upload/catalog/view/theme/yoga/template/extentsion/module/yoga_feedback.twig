@@ -1,0 +1,57 @@
+<div>
+	<form action="{{ action }}" method="post" class="d-flex flex-column justify-content-center bg-white h-100" id="form-feedback" data-url-action ="{{ action }}">
+		<h4 class="font-size-125 text-center mb-3">{{ heading_title }}</h4>
+		<div class="form-group row">
+			<label for="input-firstname" class="col-12 col-form-label">{{ entry_firstname }}</label>
+			<div class="col-12">
+				<input type="text" class="form-control" name="firstname" id="input-firstname" placeholder="{{ placeholder_firstname }}" aria-describedby="nameHelp">
+				<small id="nameHelp" class="text-danger js-input-error"></small>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="input-telephone" class="col-12 col-form-label">{{ entry_telephone }}</label>
+			<div class="col-12">
+				<input type="text" class="form-control js-input-telephone" name="telephone" id="input-telephone" placeholder="{{ placeholder_telephone }}" aria-describedby="telHelp">
+				<small id="telHelp" class="text-danger js-input-error"></small>
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="input-email" class="col-12 col-form-label">{{ entry_email }}</label>
+			<div class="col-12">
+				<input type="text" class="form-control" name="email" id="input-email" placeholder="{{ placeholder_email }}" aria-describedby="emailHelp">
+				<small id="emailHelp" class="text-danger js-input-error"></small>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="input-comment">{{ entry_comment }}</label>
+			<textarea class="form-control" name="comment" id="input-comment" rows="3" aria-describedby="commentHelp"></textarea>
+			<small id="commentHelp" class="text-danger js-input-error"></small>
+		</div>
+		
+		{% if yoga_feedback_agree_show %}
+		<div class="form-group">
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input" name="agree" id="input-agree" checked aria-describedby="agreeHelp">
+				<label class="custom-control-label agree-label" for="input-agree">
+					{{ yoga_feedback_agree_text }}
+				</label>
+				<br><small id="agreeHelp" class="text-danger js-input-error"></small>
+			</div>
+		</div>
+		{% endif %}
+
+		{% if yoga_feedback_native_captcha %}
+		
+			<small class="text-danger js-input-error"></small>
+			<div id="input-captcha">
+				{{ captcha }}
+			</div>
+		{% endif %}
+
+		<button class="btn btn-primary" type="submit">{{ button_submit }}</button>
+	</form>
+	<div class="js-success-message text-success" style='display:none; font-size: 28px; line-height: 150px;'></div>
+</div>

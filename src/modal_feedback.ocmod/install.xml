@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+  <name>Cookie message</name>
+  <code>cookiemessage</code>
+  <version>1.0.0.1</version>
+  <author>qMalmind | expoa.ru</author>
+  <link>info@expoa.ru</link>
+
+  <file path="catalog/view/theme/*/template/common/footer.twig">
+      <operation error="skip">
+        <search><![CDATA[</footer>]]></search>
+        <add position="after"><![CDATA[
+        
+        ]]></add>
+      </operation>
+  </file>
+</modification>

@@ -1,0 +1,228 @@
+{{ header }}{{ column_left }}
+<div id="content">
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="pull-right">
+				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default">
+					<i class="fa fa-reply"></i>
+				</a>
+			</div>
+			<h1>{{ extension_title }}</h1>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+					<li>
+						<a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a href="#tab-feedback" data-toggle="tab">Заявки</a>
+		</li>
+		<li>
+			<a href="#tab-setting" data-toggle="tab">Настройки формы</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div class="container-fluid tab-pane active" id="tab-feedback">
+			{% if error_warning %}
+				<div class="alert alert-danger alert-dismissible">
+					<i class="fa fa-exclamation-circle"></i>
+					{{ error_warning }}
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+				</div>
+			{% endif %}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-pencil"></i>
+						{{ text_edit }}
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div style="width:100%;display:flex;justify-content:flex-end;">
+						<button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary">
+							<i class="fa fa-save"></i>
+						</button>
+					</div>
+					<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-1 control-label" for="input-status">{{ entry_status }}</label>
+							<div class="col-sm-10">
+								<select name="module_yoga_feedback_status" id="input-status" class="form-control">
+									{% if status %}
+										<option value="1" selected="selected">{{ text_enabled }}</option>
+										<option value="0">{{ text_disabled }}</option>
+									{% else %}
+										<option value="1">{{ text_enabled }}</option>
+										<option value="0" selected="selected">{{ text_disabled }}</option>
+									{% endif %}
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-1 control-label" for="input-api-key">{{ entry_api_key }}</label>
+							<div class="col-sm-10">
+								<input type="text" name="module_yoga_feedback_api_key" value="{{ api_key }}" placeholder="{{ entry_api_key }}" id="input-api-key" class="form-control"/>
+							</div>
+						</div>
+					</form>
+					<div>
+						<table class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Phone</th>
+									<th>Email</th>
+									<th>Comment</th>
+									<th>Admin comment</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+
+								{% for feedback in feedbacks %}
+									<tr>
+										<td>{{ feedback.id }}</td>
+										<td>{{ feedback.name }}</td>
+										<td>{{ feedback.phone }}</td>
+										<td>{{ feedback.email }}</td>
+										<td>{{ feedback.comment }}</td>
+										<td class="js-feedback-admin-comment-{{ feedback.id }}">{{ feedback.admin_comment }}</td>
+										<td class="text-center">
+											<a href="#" class="btn btn-primary js-edit-admin-comment" data-feedback-id="{{ feedback.id }}">
+												<i class="fa fa-pencil"></i>
+											</a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid tab-content tab-pane" id="tab-setting">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-pencil"></i>
+						настройка формы
+					</h3>
+				</div>
+				<div class="panel-body">
+
+					<div style="width:100%;display:flex;justify-content:flex-end;">
+						<button type="submit" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary">
+							<i class="fa fa-save"></i>
+						</button>
+					</div>
+					<form method="POST" class="form-horizontal" id="form-setting">
+						<input type="hidden" name="form_setting" value="1"/>
+						<div class="form-group">
+							<label class="col-sm-1 control-label" for="agree-show">Показывать галочку agree</label>
+							<div class="col-sm-10">
+								<select name="agree_show" id="agree-show" class="form-control">
+									<option value="1" {% if yoga_feedback_agree_show %} selected="selected" {% endif %}>Вкл</option>
+									<option value="0" {% if not(yoga_feedback_agree_show) %} selected="selected" {% endif %}>Откл</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group required">
+							<label class="col-sm-1 control-label" for="agree_text">Сообщение для галочки agree</label>
+							<div class="col-sm-10">
+								<textarea name="agree_text" placeholder="Сообщение об использовании персональных данных" id="agree_text" class="form-control summernote">{{ yoga_feedback_agree_text }}</textarea>
+							</div>
+						</div>
+                        <div class="form-group">
+							<label class="col-sm-1 control-label" for="agree-show">Использовать встроенную капчу</label>
+							<div class="col-sm-10">
+								<select name="native_captcha" id="agree-show" class="form-control">
+									<option value="1" {% if yoga_feedback_native_captcha %} selected="selected" {% endif %}>Вкл</option>
+									<option value="0" {% if not(yoga_feedback_native_captcha) %} selected="selected" {% endif %}>Откл</option>
+								</select>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="view/javascript/summernote/summernote.min.js"></script>
+<link href="view/javascript/summernote/summernote.min.css" rel="stylesheet"/>
+<script type="text/javascript" src="view/javascript/summernote/summernote-image-attributes.js"></script>
+<script type="text/javascript" src="view/javascript/summernote/opencart.js"></script>
+
+<script type="text/javascript">
+	$('.summernote').summernote({height: 300});
+</script>
+
+<script>
+	let editBtns = document.querySelectorAll(".js-edit-admin-comment");
+editBtns.forEach(elem => {
+elem.addEventListener("click", event => {
+event.preventDefault();
+let feedbackId = elem.dataset.feedbackId;
+let adminCommentTd = document.querySelector(`.js-feedback-admin-comment-${feedbackId}`);
+let adminCommentText = adminCommentTd ? adminCommentTd.innerText : null;
+
+adminCommentTd.innerHTML = '';
+
+let textarea = document.createElement('textarea');
+if (adminCommentText) {
+textarea.value = adminCommentText;
+}
+
+adminCommentTd.appendChild(textarea);
+
+let btnSave = document.createElement("button");
+btnSave.innerHTML = '<i class="fa fa-save"></i>';
+btnSave.classList.add("btn");
+btnSave.classList.add("btn-primary");
+btnSave.classList.add("js-btn-save");
+
+btnSave.addEventListener("click", async () => {
+let url = new URL(window.location);
+let token = url.search.split("&")[1].split("=")[1];
+let adminText = document.querySelector(`.js-feedback-admin-comment-${feedbackId}`).innerText;
+console.log(`/admin/index.php?route=extension/module/yoga_feedback/updateAdminText/?user_token=${token}`);
+const response = await fetch(`/admin/index.php?route=extension/module/yoga_feedback/updateAdminText&user_token=${token}`, {
+method: 'POST',
+credentials: "same-origin",
+headers: {
+'Content-Type': 'application/json;charset=utf-8'
+},
+body: JSON.stringify(
+{
+'feedback_id': feedbackId,
+"admin_comment_text": document.querySelector(`.js-feedback-admin-comment-${feedbackId}`).querySelector("textarea").value
+}
+)
+}).then(res => {
+res.json().then(res => {
+if (res.success) {
+adminCommentTd.innerHTML = '';
+adminCommentTd.innerText = res.data.admin_comment;
+adminCommentTd.style.color = "#198754";
+} else {
+adminCommentTd.innerHTML = '';
+adminCommentTd.innerText = "error";
+adminCommentTd.style.color = "#dc3545";
+}
+elem.parentElement.querySelector(".js-btn-save").remove();
+});
+});
+});
+
+elem.parentElement.appendChild(btnSave);
+
+});
+});
+</script>
+
+{{ footer }}

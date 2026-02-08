@@ -1,0 +1,34 @@
+.fixed-middle-right-btn {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    z-index: 2;
+    transform: rotate(-90deg) translate(0, 100%);
+}
+
+.fixed-middle-right-btn:active {
+    transform: rotate(-90deg) translate(0, 100%) !important;
+}
+
+.form-feedback-success::after {
+    opacity: 1 !important;
+    z-index: 1 !important;
+}
+
+#form-feedback::after {
+    content: 'Спасибо за ваше обращение! Мы получили ваше сообщение наш менеджер скоро с вами свяжется';
+    font-size: 26px;
+    color: green;
+    position: absolute;
+    left: 0;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all .2s ease-out;
+    z-index: -1;
+}
