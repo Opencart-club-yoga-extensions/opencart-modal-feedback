@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $.ajax({
             url: url,
             type: "post",
-            data: $("#form-feedback").find("input[type=text], input[type=tel], input[type=email], input[type=checkbox]:checked, input[type=radio]:checked, textarea"),
+            data: $("#form-feedback").find("input[type=text], input[type=tel], input[type=email], input[type=checkbox]:checked, input[type=radio]:checked, textarea, input[type=hidden]"),
             dataType: "json",
             beforeSend: function() {
               $("#form-feedback").find("button[type=submit]").prop("disabled", true);
@@ -25,13 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
                           new Alert(json["error"]["warning"][i], "warning");
                     }
                   } else if (json["success"]) {
-                    document.getElementById('form-feedback').classList.add('form-feedback-success');
-                    // $.magnificPopup.close();
-                    // new Alert(json["success"], "success");
-                    // let successMessage = document.querySelector('.js-success-message');
-                    // successMessage.style.display = 'block';
-                    // successMessage.innerText = json["success"];
-
+                    document.getElementById('form-feedback').querySelectorAll('input').forEach(inpt=>inpt.value='');
+                    document.getElementById('form-feedback').querySelectorAll('textarea').forEach(inpt=>inpt.value='');
+                    $('<span class="text-success">Форма успешно отправлена</span>').insertBefore('#form-feedback button[type="submit"]');
                   }
             },
             complete: function() {
@@ -47,5 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $(this).removeClass("is-invalid");
         $(this).siblings('.js-input-error').text('');
     });
+
+    IMask(document.querySelector('.js-input-telephone'), { mask: '+{7} (000) 000-00-00' });
 
 });
