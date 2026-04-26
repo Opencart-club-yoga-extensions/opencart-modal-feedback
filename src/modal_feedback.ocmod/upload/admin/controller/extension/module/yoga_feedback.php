@@ -10,18 +10,28 @@ class ControllerExtensionModuleYogaFeedback extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-			
+			$validate_success = true;
 			if($this->validate()){
-				$this->model_setting_setting->editSetting('module_yoga_feedback', $this->request->post);
-
-				$this->session->data['success'] = $this->language->get('text_success');
-			}
+				// $this->model_setting_setting->editSetting('yoga_feedback', $this->request->post);
 			
-			if($this->validateAgreeText() && $this->request->post['form_setting']){
-				$this->load->model('setting/setting');
-				$this->model_setting_setting->editSettingValue('yoga_feedback', 'yoga_feedback_agree_text', $this->request->post['agree_text']);
-				$this->model_setting_setting->editSettingValue('yoga_feedback', 'yoga_feedback_agree_show', $this->request->post['agree_show']);
-				$this->model_setting_setting->editSettingValue('yoga_feedback', 'yoga_feedback_native_captcha', $this->request->post['native_captcha']);
+				$this->model_setting_setting->editSettingValue('yoga_feedback', 'yoga_feedback_status', $this->request->post['yoga_feedback_status']);
+
+				
+
+				if($this->validateAgreeText()){
+					$this->load->model('setting/setting');
+					$this->model_setting_setting->editSettingValue('yoga_feedback', 'yoga_feedback_agree_text', $this->request->post['agree_text']);
+					$this->model_setting_setting->editSettingValue('yoga_feedback', 'yoga_feedback_agree_show', $this->request->post['agree_show']);
+					$this->model_setting_setting->editSettingValue('yoga_feedback', 'yoga_feedback_native_captcha', $this->request->post['native_captcha']);
+				}else{
+					$validate_success = false;
+				}
+
+			}else{
+				$validate_success = false;
+			}
+			if($validate_success){
+				$this->session->data['success'] = $this->language->get('text_success');
 			}
 			
 		}
@@ -71,18 +81,18 @@ class ControllerExtensionModuleYogaFeedback extends Controller {
 			$module_info = $this->model_setting_module->getModule($this->request->get['module_id']);
 		}
 
-		if (isset($this->request->post['module_yoga_feedback_status'])) {
-			$data['status'] = $this->request->post['module_yoga_feedback_status'];
+		if (isset($this->request->post['yoga_feedback_status'])) {
+			$data['status'] = $this->request->post['yoga_feedback_status'];
 		} else {
-			$data['status'] = $this->config->get('module_yoga_feedback_status');
+			$data['status'] = $this->config->get('yoga_feedback_status');
     	}
 
-    	if (isset($this->request->post['module_yoga_search_api_key'])) {
-			$data['module_yoga_search_api_key'] = $this->request->post['module_yoga_search_api_key'];
-		} elseif ($this->config->get('module_yoga_search_api_key')) {
-			$data['module_yoga_search_api_key'] = $this->config->get('module_yoga_search_api_key');
+    	if (isset($this->request->post['yoga_search_api_key'])) {
+			$data['yoga_search_api_key'] = $this->request->post['yoga_search_api_key'];
+		} elseif ($this->config->get('yoga_search_api_key')) {
+			$data['yoga_search_api_key'] = $this->config->get('yoga_search_api_key');
 		} else {
-			$data['module_yoga_search_api_key'] = 0;
+			$data['yoga_search_api_key'] = 0;
 		}
 
 		$data['header'] = $this->load->controller('common/header');
@@ -157,6 +167,7 @@ class ControllerExtensionModuleYogaFeedback extends Controller {
             'yoga_feedback_agree_text' => '',
             'yoga_feedback_agree_show' => '',
             'yoga_feedback_native_captcha' => '',
+			'yoga_feedback_status' => 0,
         ]);
 	}
 

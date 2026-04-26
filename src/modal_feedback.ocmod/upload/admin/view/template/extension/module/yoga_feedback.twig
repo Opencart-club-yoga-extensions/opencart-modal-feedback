@@ -25,7 +25,7 @@
 			<a href="#tab-setting" data-toggle="tab">Настройки формы</a>
 		</li>
 	</ul>
-	<div class="tab-content">
+	<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="tab-content">
 		<div class="container-fluid tab-pane active" id="tab-feedback">
 			{% if error_warning %}
 				<div class="alert alert-danger alert-dismissible">
@@ -47,11 +47,11 @@
 							<i class="fa fa-save"></i>
 						</button>
 					</div>
-					<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+					<div class="form-horizontal">
 						<div class="form-group">
 							<label class="col-sm-1 control-label" for="input-status">{{ entry_status }}</label>
 							<div class="col-sm-10">
-								<select name="module_yoga_feedback_status" id="input-status" class="form-control">
+								<select name="yoga_feedback_status" id="input-status" class="form-control">
 									{% if status %}
 										<option value="1" selected="selected">{{ text_enabled }}</option>
 										<option value="0">{{ text_disabled }}</option>
@@ -68,7 +68,7 @@
 								<input type="text" name="module_yoga_feedback_api_key" value="{{ api_key }}" placeholder="{{ entry_api_key }}" id="input-api-key" class="form-control"/>
 							</div>
 						</div>
-					</form>
+					</div>
 					<div>
 						<table class="table table-bordered table-hover">
 							<thead>
@@ -116,11 +116,11 @@
 				<div class="panel-body">
 
 					<div style="width:100%;display:flex;justify-content:flex-end;">
-						<button type="submit" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary">
+						<button type="submit" data-toggle="tooltip" form="form-module" title="{{ button_save }}" class="btn btn-primary">
 							<i class="fa fa-save"></i>
 						</button>
 					</div>
-					<form method="POST" class="form-horizontal" id="form-setting">
+					<div class="form-horizontal" id="form-setting">
 						<input type="hidden" name="form_setting" value="1"/>
 						<div class="form-group">
 							<label class="col-sm-1 control-label" for="agree-show">Показывать галочку agree</label>
@@ -146,7 +146,7 @@
 								</select>
 							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
