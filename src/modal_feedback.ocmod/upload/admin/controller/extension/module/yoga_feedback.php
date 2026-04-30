@@ -35,9 +35,6 @@ class ControllerExtensionModuleYogaFeedback extends Controller {
 			}
 			
 		}
-		$data['yoga_feedback_agree_text'] = $this->config->get('yoga_feedback_agree_text');
-		$data['yoga_feedback_agree_show'] = $this->config->get('yoga_feedback_agree_show');
-		$data['yoga_feedback_native_captcha'] = $this->config->get('yoga_feedback_native_captcha');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
@@ -86,6 +83,27 @@ class ControllerExtensionModuleYogaFeedback extends Controller {
 		} else {
 			$data['status'] = $this->config->get('yoga_feedback_status');
     	}
+
+		if (isset($this->request->post['agree_text'])) {
+			$data['yoga_feedback_agree_text'] = $this->request->post['agree_text'];
+		}else{
+			$data['yoga_feedback_agree_text'] = $this->config->get('yoga_feedback_agree_text');
+		}
+		if (isset($this->request->post['agree_show'])) {
+			$data['yoga_feedback_agree_show'] = $this->request->post['agree_show'];
+		}else{
+			$data['yoga_feedback_agree_show'] = $this->config->get('yoga_feedback_agree_show');
+		}
+		if (isset($this->request->post['native_captcha'])) {
+			$data['yoga_feedback_native_captcha'] = $this->request->post['native_captcha'];
+		}else{
+			$data['yoga_feedback_native_captcha'] = $this->config->get('yoga_feedback_native_captcha');
+		}
+
+		// $data['yoga_feedback_agree_text'] = $this->config->get('yoga_feedback_agree_text') ?? $this->request->post['agree_text'];
+		// $data['yoga_feedback_agree_show'] = $this->config->get('yoga_feedback_agree_show') ?? $this->request->post['agree_show'];
+		// $data['yoga_feedback_native_captcha'] = $this->config->get('yoga_feedback_native_captcha') ?? $this->request->post['native_captcha'];
+
 
     	if (isset($this->request->post['yoga_search_api_key'])) {
 			$data['yoga_search_api_key'] = $this->request->post['yoga_search_api_key'];
