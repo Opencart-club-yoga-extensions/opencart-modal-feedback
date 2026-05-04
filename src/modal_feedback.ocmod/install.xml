@@ -19,11 +19,7 @@
 					// 	<yoga_feedback_extension>
 
 					$this->load->model('setting/setting');
-					if($this->model_setting_setting->getSettingValue('module_yoga_feedback_status')){
-						$data['feedback_form'] = $this->load->controller('extension/module/yoga_feedback');
-					}else{
-						$data['feedback_form'] = '';
-					}
+					$data['feedback_form'] = $this->load->controller('extension/module/yoga_feedback');
 					// 	</yoga_feedback_extension>
 				]]>
 			</add>

@@ -6,7 +6,7 @@ class ControllerExtensionModuleYogaFeedback extends Controller {
 	public function index(){
 		$data = array();
 
-    	if (!$this->config->get('module_yoga_feedback_status')) return false;
+    	if (!$this->config->get('yoga_feedback_status')) return false;
 
 		$this->load->language('extension/module/yoga_feedback');
 		$data['api_key'] = $this->config->get('module_yoga_feedback_api_key');
