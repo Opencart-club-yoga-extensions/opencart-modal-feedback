@@ -5,9 +5,10 @@ $_['heading_title']     = '<b style="color: #FF0016;">YOGA</b> Форма обр
 $_['extension_title']   = 'Форма обратной связи';
 
 // Text
-$_['text_module']       = 'Модули';
-$_['text_success']      = 'Настройки успешно изменены!';
-$_['text_edit']         = 'Редактирование';
+$_['text_module']          = 'Модули';
+$_['text_success']         = 'Настройки успешно изменены!';
+$_['text_edit']            = 'Редактирование';
+$_['text_clear_feedbacks'] = 'Оставить последние 100';
 
 // Entry
 $_['entry_status']      = 'Статус';

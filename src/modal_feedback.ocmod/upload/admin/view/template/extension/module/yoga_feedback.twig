@@ -69,6 +69,12 @@
 							</div>
 						</div>
 					</div>
+					<a href="{{ clear_feedbacks }}"
+					class="btn btn-danger"
+					onclick="return confirm('Удалить все заявки кроме последних 100?');">
+						<i class="fa fa-trash"></i>
+						{{ text_clear_feedbacks }}
+					</a>
 					<div>
 						<table class="table table-bordered table-hover">
 							<thead>

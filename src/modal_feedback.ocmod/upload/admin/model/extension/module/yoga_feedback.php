@@ -34,5 +34,23 @@ class ModelExtensionModuleYogaFeedback extends Model {
         $query = $this->db->query("SELECT * FROM oc_feedbacks;");
         return $query->rows;
     }
+    
+    public function keepLastFeedbacks($limit = 100) {
+        $limit = (int)$limit;
+
+        $this->db->query("
+            DELETE FROM `" . DB_PREFIX . "feedbacks`
+            WHERE id NOT IN (
+                SELECT id FROM (
+                    SELECT id
+                    FROM `" . DB_PREFIX . "feedbacks`
+                    ORDER BY id DESC
+                    LIMIT " . $limit . "
+                ) t
+            )
+        ");
+
+        return true;
+    }
 
 }

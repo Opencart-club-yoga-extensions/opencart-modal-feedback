@@ -100,6 +100,12 @@ class ControllerExtensionModuleYogaFeedback extends Controller {
 			$data['yoga_feedback_native_captcha'] = $this->config->get('yoga_feedback_native_captcha');
 		}
 
+		$data['clear_feedbacks'] = $this->url->link(
+			'extension/module/yoga_feedback/clearOldFeedbacks',
+			'user_token=' . $this->session->data['user_token'],
+			true
+		);
+
 		// $data['yoga_feedback_agree_text'] = $this->config->get('yoga_feedback_agree_text') ?? $this->request->post['agree_text'];
 		// $data['yoga_feedback_agree_show'] = $this->config->get('yoga_feedback_agree_show') ?? $this->request->post['agree_show'];
 		// $data['yoga_feedback_native_captcha'] = $this->config->get('yoga_feedback_native_captcha') ?? $this->request->post['native_captcha'];
@@ -162,6 +168,28 @@ class ControllerExtensionModuleYogaFeedback extends Controller {
 		}
 
 		return !$this->error;
+	}
+
+	public function clearOldFeedbacks() {
+		if (!$this->user->hasPermission('modify', 'extension/module/yoga_feedback')) {
+			$this->session->data['error_warning'] = 'Недостаточно прав';
+		} else {
+			$this->load->model('extension/module/yoga_feedback');
+
+			$limit = 100; // сколько последних записей оставить
+
+			$this->model_extension_module_yoga_feedback->keepLastFeedbacks($limit);
+
+			$this->session->data['success'] = 'Оставлены последние ' . $limit . ' заявок';
+		}
+
+		$this->response->redirect(
+			$this->url->link(
+				'extension/module/yoga_feedback',
+				'user_token=' . $this->session->data['user_token'],
+				true
+			)
+		);
 	}
 
 	public function install(){

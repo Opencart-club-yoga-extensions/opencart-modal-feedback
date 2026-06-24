@@ -5,10 +5,10 @@ $_['heading_title']   = '<b style="color: #FF0016;">YOGA</b> Feedback form';
 $_['extension_title'] = 'Feedback form';
 
 // Text
-$_['text_extension']	= 'Extension';
-$_['text_success']		= 'Settings changed successfully!';
-$_['text_edit']				= 'Module settings';
-
+$_['text_extension']	   = 'Extension';
+$_['text_success']		   = 'Settings changed successfully!';
+$_['text_edit']			   = 'Module settings';
+$_['text_clear_feedbacks'] = 'Keep the last 100';
 // Entry
 $_['entry_status']    = 'Status';
 $_['entry_api_key']   = 'API Key';
